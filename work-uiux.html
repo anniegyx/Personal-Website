@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work-UI/UX</title>
+    <link rel="stylesheet" href="style.css" />
+
+
+    <style>
+        @font-face {
+            font-family: "Futura Condensed";
+            src: url("FONT/Futura/FuturaCondensed.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Futura Condensed Extra Bold";
+            src: url("FONT/Futura/FuturaCondXBoold.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Futura Medium";
+            src: url("FONT/Futura/Futura-Medium.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Shelley Allegro Script";
+            src: url("FONT/Shelley/Shelley-AllegroScript.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+
+        /* Fix body layout */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #010A08;
+            font-family: "Futura Condensed", sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        body {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+            overflow-y: scroll;
+            /* still enables scrolling */
+        }
+
+        .hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .spline-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -4;
+            pointer-events: none;
+            /* optional: makes sure user can't interact with it */
+        }
+
+        .text-hover-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        /* Top navigation bar */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            padding: 0 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #010A08;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav-side {
+            display: flex;
+            gap: 240px;
+        }
+
+        .nav-item {
+            font-family: "Futura Condensed Extra Bold", sans-serif;
+            font-size: 20px;
+            font-weight: normal;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-item:hover {
+            opacity: 0.7;
+        }
+
+        .nav-logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "Shelley Allegro Script", cursive;
+            font-size: 32px;
+            font-weight: normal;
+        }
+
+        .nav-logo:hover {
+            color: #F5D3DD;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Filter Horizontal */
+        .filter-bar-section {
+            max-width: 400px;
+            margin: 100px auto 0;
+            padding: 0;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-family: "Futura Condensed", sans-serif;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .filter-bar-divider {
+            width: 100%;
+            height: 1px;
+            background-color: gray;
+            border: none;
+            margin: 10px 0 40px 0;
+        }
+
+        .filter-bar-item {
+            cursor: pointer;
+        }
+
+        .filter-bar-item:hover {
+            color: #F5D3DD;
+        }
+
+        /* Main Container */
+        .container {
+            margin-top: 60px;
+            margin-bottom: 120px;
+            width: 100%;
+            max-width: 100%;
+            padding: 0 80px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            /* 12 equal-width columns */
+            gap: 20px;
+            grid-auto-rows: auto;
+        }
+
+        /* Individual item heights and column spans */
+        .levelup {
+            height: 480px;
+            grid-column: span 6;
+        }
+
+        .family-surprise-box {
+            height: 480px;
+            grid-column: span 6;
+        }
+
+        .hacksc {
+            height: 600px;
+            grid-column: span 8;
+        }
+
+
+        .grid-item {
+            background-color: #c8c8c8;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border-radius: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Image overlay for better text readability - only on hover */
+        .grid-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover::after {
+            opacity: 1;
+        }
+
+
+        /* Text Link */
+        .text-link {
+            text-decoration: none;
+            color: inherit;
+            display: inline-block;
+        }
+
+        .text-link h1 {
+            margin: 0;
+        }
+
+        /* Text*/
+        h1 {
+            font-family: "Futura Condensed", sans-serif;
+            font-size: 70px;
+            font-weight: normal;
+            color: #fff;
+            margin: 0;
+        }
+
+        h2.futura {
+            font-family: "Futura", sans-serif;
+            font-size: 40px;
+            margin: 0.2em 0;
+        }
+
+        h2.shelley {
+            font-family: "Shelley Allegro Script", cursive;
+            font-size: 50px;
+            font-weight: normal;
+            margin: 0.2em 0;
+        }
+
+        p {
+            font-family: "Futura Condensed", sans-serif;
+            font-size: 24px;
+            color: #fff;
+            margin: 0.2em 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-side left">
+            <a href="work.html" class="nav-item text-link" onclick="handleNavClick(event, 'work')">WORK</a>
+        </div>
+        <a href="home.html" class="nav-logo text-link" onclick="handleNavClick(event, 'home')">AG</a>
+        <div class="nav-side right">
+            <a href="play.html" class="nav-item text-link" onclick="handleNavClick(event, 'play')">PLAY</a>
+            <a href="about.html" class="nav-item text-link" onclick="handleNavClick(event, 'about')">A'BOUT</a>
+        </div>
+    </nav>
+
+    <div class="filter-bar-section">
+        <div class="filter-bar">
+            <a href="work-uiux.html" class="filter-bar-item text-link">UI/UX</a>
+            <a href="work-visual.html" class="filter-bar-item text-link">VISUAL</a>
+            <a href="work-film.html" class="filter-bar-item text-link">FILM</a>
+            <a href="work-aigc.html" class="filter-bar-item text-link">AIGC</a>
+        </div>
+        <hr class="filter-bar-divider" />
+    </div>
+
+    <div class="container">
+        <div class="grid">
+            <a href="levelup.html" class="grid-item levelup text-link"
+                style="background-image: url('IMAGE/LevelUp/LevelUpCover.png'); position: relative; background-size: cover;">
+                <div class="project-info" style="position: relative; z-index: 3;">
+                    <div class="project-label">Level Up</div>
+                    <div class="project-type">UI/UX Design + Spatial Design</div>
+                </div>
+            </a>
+
+            <a href="family-surprise-box.html" class="grid-item family-surprise-box text-link"
+                style="background-image: url('IMAGE/FamilySurpriseBox/FamilySurpriseBoxCover.png'); position: relative; background-size: cover;">
+                <div class="project-info" style="position: relative; z-index: 3;">
+                    <div class="project-label">Family Surprise Box</div>
+                    <div class="project-type">UI/UX Design + Product Design</div>
+                </div>
+            </a>
+
+            <a href="hacksc.html" class="grid-item hacksc text-link">
+                <div class="project-info" style="position: relative; z-index: 3;">
+                    <div class="project-label">Hack SC</div>
+                    <div class="project-type">UI/UX Design + Brand Identity</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer-bar">
+        <div class="footer-left"><span style="pointer-events: none;"><span class="highlighted-font">Annie
+                    Gu</span>&nbsp;&nbsp;© 2025</span></div>
+        <div class="footer-right">
+            <a href="#top-anchor" class="footer-link">↑ BACK TO TOP</a>
+        </div>
+    </footer>
+
+    <script>
+        // Add some interactive functionality
+        document.querySelectorAll('.grid-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const label = this.querySelector('.project-label').textContent;
+                console.log(`Clicked on: ${label}`);
+                // You can add navigation or modal functionality here
+            });
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-item').forEach(filter => {
+            filter.addEventListener('click', function () {
+                const filterType = this.textContent.toLowerCase();
+                console.log(`Filter selected: ${filterType}`);
+                // Add filter logic here
+
+                // Remove active class from all filters
+                document.querySelectorAll('.filter-item').forEach(f => f.style.opacity = '0.7');
+                // Add active state to clicked filter
+                this.style.opacity = '1';
+            });
+        });
+
+        // Smooth scrolling and navigation
+        document.querySelectorAll('.nav-item').forEach(navItem => {
+            navItem.addEventListener('click', function () {
+                const text = this.textContent.toLowerCase();
+                console.log(`Navigation clicked: ${text}`);
+                // Add navigation logic here
+            });
+        });
+    </script>
+</body>
+
+</html>

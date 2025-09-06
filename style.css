@@ -1,0 +1,727 @@
+@font-face {
+    font-family: "Futura Condensed";
+    src: url("FONT/Futura/FuturaCondensed.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Futura Condensed Extra Bold";
+    src: url("FONT/Futura/FuturaCondXBoold.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Futura Medium";
+    src: url("FONT/Futura/Futura-Medium.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Futura Light";
+    src: url("FONT/Futura/Futura-Light.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: "Shelley Allegro Script";
+    src: url("FONT/Shelley/Shelley-AllegroScript.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* Fix body layout */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #010A08;
+    font-family: "Futura Condensed", sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    overflow-y: scroll;
+    /* still enables scrolling */
+    transition: opacity 0.3s ease;
+}
+
+.hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.spline-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -4;
+    pointer-events: none;
+    /* optional: makes sure user can't interact with it */
+}
+
+.text-hover-container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+/* Top navigation bar */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    padding: 0 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #010A08;
+    z-index: 1000;
+}
+
+.nav-side {
+    display: flex;
+    gap: 240px;
+}
+
+.nav-item {
+    font-family: "Futura Condensed Extra Bold", sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease;
+}
+
+.nav-item:hover {
+    opacity: 0.7;
+}
+
+.nav-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 32px;
+    font-weight: normal;
+}
+
+.nav-logo:hover {
+    color: #F5D3DD;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========== WORK PAGE ========== */
+/* Main Container */
+.container {
+    margin-top: 120px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 80px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* 12 equal-width columns */
+    gap: 20px;
+    grid-auto-rows: auto;
+}
+
+/* Individual item heights and column spans */
+.amelie {
+    height: 400px;
+    grid-column: span 3;
+}
+
+.flowerhead {
+    height: 400px;
+    grid-column: span 6;
+}
+
+.my-collection {
+    height: 400px;
+    grid-column: span 3;
+}
+
+.zhonghua-master-chef {
+    height: 240px;
+    grid-column: span 4;
+    grid-row: 2;
+}
+
+.apocile {
+    height: 500px;
+    grid-column: span 8;
+    grid-row: 2 / 4;
+}
+
+.death {
+    height: 240px;
+    grid-column: span 4;
+    grid-row: 3;
+}
+
+.bruise {
+    height: 400px;
+    grid-column: span 6;
+}
+
+.hold-on {
+    height: 400px;
+    grid-column: span 6;
+}
+
+.fia {
+    height: 400px;
+    grid-column: span 6;
+}
+
+.defined {
+    height: 400px;
+    grid-column: span 6;
+}
+
+.no-tomorrow {
+    height: 500px;
+    grid-column: span 4;
+}
+
+.overture {
+    height: 500px;
+    grid-column: span 8;
+}
+
+.no-more-bets {
+    height: 300px;
+    grid-column: span 3;
+}
+
+.dust-remember {
+    height: 300px;
+    grid-column: span 5;
+}
+
+.orb {
+    height: 300px;
+    grid-column: span 4;
+}
+
+.grid-item {
+    background-color: #c8c8c8;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border-radius: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.grid-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+}
+
+/* Image overlay for better text readability - only on hover */
+.grid-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.grid-item:hover::after {
+    opacity: 1;
+}
+
+.project-label {
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.project-type {
+    font-family: "Futura Light", sans-serif;
+    font-size: 18px;
+    color: #fff;
+}
+
+.project-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+    opacity: 0;
+    transition: all 0.3s ease;
+    padding: 0 12px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.grid-item:hover .project-info {
+    opacity: 1;
+}
+
+
+/* Filter Vertical */
+.filter-vertical-section {
+    text-align: center;
+    margin-top: 40px;
+    padding: 40px 0;
+}
+
+.filter-vertical-title {
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 32px;
+    margin-bottom: 20px;
+
+}
+
+.filter-vertical-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-vertical-item {
+    font-family: "Futura Condensed Extra Bold", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease;
+}
+
+.filter-vertical-item:hover {
+    color: #F5D3DD;
+}
+
+
+/* Footer Bar */
+.footer-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    position: relative;
+    margin-top: 90px;
+}
+
+.footer-left,
+.footer-right {
+    color: #aaa;
+    font-family: "Futura Light", sans-serif;
+    font-size: 18px;
+}
+
+.footer-left .highlighted-font {
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 22px;
+    letter-spacing: 0.6px;
+}
+
+.footer-link {
+    color: #aaa;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer-link:hover {
+    opacity: 0.7;
+    letter-spacing: 1px;
+}
+
+/* ========== PROJECT PAGE ========== */
+/* Top Cover Page - full screen */
+.top-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 90px;
+    margin-bottom: 0;
+}
+
+.top-video {
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 0;
+}
+
+/* Project Description */
+.project-description {
+    margin-top: 90px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 60px;
+    text-align: center;
+}
+
+.project-inner {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-title {
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 54px;
+    font-weight: normal;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1s ease 0.5s forwards;
+    width: 1000px;
+    text-align: left;
+}
+
+.project-subtitle {
+    font-family: "Futura Medium", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease 0.8s forwards;
+    width: 1000px;
+    text-align: right;
+}
+
+.project-divider {
+    width: 1000px;
+    height: 1px;
+    background-color: #fff;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.1s forwards;
+}
+
+/* Project Details Grid */
+.project-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 90px;
+    max-width: 1000px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease 1.4s forwards;
+}
+
+.detail-section {
+    text-align: left;
+}
+
+.detail-title {
+    font-family: "Futura Medium", sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #F7B2D8;
+    margin-bottom: 20px;
+}
+
+.detail-content {
+    font-family: "Futura Medium", sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+/* Project Overview & My ROle */
+.project-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%;
+    margin-top: 120px;
+}
+
+/* Restore column proportions and ensure vertical alignment */
+.project-section-left {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.section-title-left {
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 36px;
+    color: #F7B2D8;
+    line-height: 1;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.project-section-right {
+    margin-top: -30px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.section-title-right {
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 36px;
+    color: #F7B2D8;
+    line-height: 1;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.section-text {
+    font-family: "Futura Medium", sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #fff;
+    line-height: 1.6;
+    text-align: left;
+}
+
+/* Background Animation */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.03;
+}
+
+.bg-dots {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Project Footer Navigation */
+.project-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 80px 10px;
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 28px;
+    color: #fff;
+    margin-top: 150px;
+}
+
+.footer-nav {
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+}
+
+.footer-nav:hover {
+    opacity: 0.7;
+}
+
+
+
+/* ========== ABOUT PAGE ========== */
+.about-container {
+    margin-top: 90px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 80px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    /* maintains 60:40 ratio */
+    gap: 30px;
+    align-items: start;
+}
+
+.text-content {
+    padding-right: 40px;
+}
+
+.text-content p {
+    font-family: "Futura Medium", sans-serif;
+    font-size: 21px;
+    letter-spacing: 1px;
+}
+
+/* Added styles for About page intro paragraph and highlighted font */
+.intro-paragraph {
+    font-family: "Futura Medium", sans-serif;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.intro-paragraph .highlighted-font {
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 40px;
+}
+
+/* Custom spacing for the three paragraphs inside .text-content on the About page */
+.text-content p:nth-of-type(1) {
+    margin-top: 30px;
+    margin-bottom: 90px;
+}
+
+.text-content p:nth-of-type(2) {
+    margin-bottom: 40px;
+    line-height: 1.4;
+}
+
+.text-content p:nth-of-type(3) {
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+.right-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.contact-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateX(10px);
+}
+
+.contact-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.contact-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.contact-icon:hover img {
+    transform: rotate(-30deg);
+}
+
+.contact-text {
+    font-family: "Futura Medium", sans-serif;
+    font-size: 24px;
+    letter-spacing: 1.2px;
+    color: #fff;
+}
+
+.profile-image {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    align-self: flex-start;
+    margin-top: 60px;
+}
+
+
+
+
+/* Text Link */
+.text-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+.text-link h1 {
+    margin: 0;
+}
+
+/* Text*/
+h1 {
+    font-family: "Futura Condensed", sans-serif;
+    font-size: 70px;
+    font-weight: normal;
+    color: #fff;
+    margin: 0;
+}
+
+h2.futura {
+    font-family: "Futura", sans-serif;
+    font-size: 40px;
+    margin: 0.2em 0;
+}
+
+h2.shelley {
+    font-family: "Shelley Allegro Script", cursive;
+    font-size: 50px;
+    font-weight: normal;
+    margin: 0.2em 0;
+}
+
+p {
+    font-family: "Futura Condensed", sans-serif;
+    font-size: 24px;
+    color: #fff;
+    margin: 0.2em 0;
+}
