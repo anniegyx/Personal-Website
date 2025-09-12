@@ -36,7 +36,7 @@
       <a href="flower-head.html" class="grid-item flowerhead text-link" 
         style="background-image: url('IMAGE/Flowerhead/FlowerheadCover.png');">
         <div class="project-info">
-          <div class="project-label">4444Flowerhead Gallery</div>
+          <div class="project-label">5555Flowerhead Gallery</div>
           <div class="project-type">Brand Identity</div>
         </div>
       </a>
@@ -175,14 +175,35 @@
       
       if (bgImage && bgImage !== 'none') {
         console.log('Raw background-image CSS:', bgImage);
+        console.log('CSS length:', bgImage.length);
+        console.log('CSS char codes:', Array.from(bgImage).map(c => c.charCodeAt(0)));
         
-        // Extract URL from background-image CSS
-        const urlMatch = bgImage.match(/url\(['"]?([^'"]+)['"]?\)/);
-        if (urlMatch) {
-          const imageUrl = urlMatch[1];
-          console.log('Extracted URL:', imageUrl);
+        // Try multiple regex patterns to extract URL
+        let imageUrl = null;
+        const patterns = [
+          /url\(['"]?([^'"]+)['"]?\)/,  // Original pattern
+          /url\(([^)]+)\)/,             // Simpler pattern
+          /url\(['"]([^'"]+)['"]\)/,    // With quotes
+          /url\(([^)]+)\)/i             // Case insensitive
+        ];
+        
+        for (let i = 0; i < patterns.length; i++) {
+          const match = bgImage.match(patterns[i]);
+          if (match && match[1]) {
+            imageUrl = match[1].trim();
+            console.log(`Pattern ${i + 1} matched:`, imageUrl);
+            break;
+          }
+        }
+        
+        if (imageUrl) {
+          console.log('Final extracted URL:', imageUrl);
           console.log('URL length:', imageUrl.length);
           console.log('URL char codes:', Array.from(imageUrl).map(c => c.charCodeAt(0)));
+          
+          // Clean the URL of any problematic characters
+          const cleanUrl = imageUrl.replace(/[^\x20-\x7E]/g, ''); // Remove non-printable chars
+          console.log('Cleaned URL:', cleanUrl);
           
           // Test if image loads
           const img = new Image();
@@ -192,14 +213,14 @@
             updateDebugDisplay();
           };
           img.onerror = function() {
-            console.error(`❌ ${projectLabel} image failed to load:`, imageUrl);
-            console.error('Full resolved URL:', new URL(imageUrl, window.location.href).href);
-            failedImages.push({name: projectLabel, url: imageUrl, resolvedUrl: new URL(imageUrl, window.location.href).href});
+            console.error(`❌ ${projectLabel} image failed to load:`, cleanUrl);
+            console.error('Full resolved URL:', new URL(cleanUrl, window.location.href).href);
+            failedImages.push({name: projectLabel, url: cleanUrl, resolvedUrl: new URL(cleanUrl, window.location.href).href});
             updateDebugDisplay();
           };
-          img.src = imageUrl;
+          img.src = cleanUrl;
         } else {
-          console.error('No URL match found in:', bgImage);
+          console.error('No URL match found with any pattern in:', bgImage);
           failedImages.push({name: projectLabel, url: 'No URL match', resolvedUrl: 'N/A'});
           updateDebugDisplay();
         }
