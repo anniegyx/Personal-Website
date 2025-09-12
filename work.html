@@ -36,7 +36,7 @@
       <a href="flower-head.html" class="grid-item flowerhead text-link" 
         style="background-image: url('/IMAGE/Flowerhead/FlowerheadCover.png');">
         <div class="project-info">
-          <div class="project-label">9999Flowerhead Gallery</div>
+          <div class="project-label">Flowerhead Gallery</div>
           <div class="project-type">Brand Identity</div>
         </div>
       </a>
@@ -181,32 +181,6 @@
     </div>
   </div>
 
-  <!-- DEBUG SECTION - Remove this after fixing -->
-  <div id="debug-section" style="
-    position: fixed; 
-    top: 10px; 
-    right: 10px; 
-    background: rgba(0,0,0,0.8); 
-    color: white; 
-    padding: 10px; 
-    font-family: monospace; 
-    font-size: 12px; 
-    max-width: 300px; 
-    z-index: 9999;
-    border-radius: 5px;
-    display: none;
-  ">
-    <div style="font-weight: bold; margin-bottom: 5px;">🐛 DEBUG INFO</div>
-    <div id="debug-content"></div>
-    <button onclick="document.getElementById('debug-section').style.display='none'" style="
-      background: #ff4444; 
-      color: white; 
-      border: none; 
-      padding: 2px 5px; 
-      margin-top: 5px; 
-      cursor: pointer;
-    ">Close</button>
-  </div>
   </div>
 
 
@@ -219,19 +193,10 @@
   </footer>
 
   <script>
-    // DEBUG: Image loading diagnostics
-    console.log('=== IMAGE LOADING DEBUG ===');
-    console.log('Current URL:', window.location.href);
-    console.log('Base URL:', window.location.origin);
-    console.log('Current path:', window.location.pathname);
-    
-    let debugInfo = [];
-    let failedImages = [];
-    let loadedImages = [];
-    
-    // Direct mapping of project labels to image paths (since CSS parsing is broken)
+    // Direct mapping of project labels to image paths
     const projectImageMap = {
       'Amelie': 'IMAGE/Amelie/AmelieCover.png',
+      'Flowerhead Gallery': 'IMAGE/Flowerhead/FlowerheadCover.png',
       'My Collection': 'IMAGE/MyCollection/MyCollectionCover.jpg',
       'Zhonghua Master Chef': 'IMAGE/ZhonghuaMasterChef/ZHMFCover.jpg',
       'Apocile': 'IMAGE/Apocile/ApocileCover.png',
@@ -240,94 +205,9 @@
       'The Orb': 'IMAGE/TheOrb/TheOrbCover.png'
     };
     
-    // Handle dynamic flowerhead labels (any label containing "Flowerhead")
     function getImagePath(projectLabel) {
-      if (projectLabel.includes('Flowerhead')) {
-        return 'IMAGE/Flowerhead/FlowerheadCover.png';
-      }
       return projectImageMap[projectLabel];
     }
-    
-    // Test images using direct mapping instead of CSS parsing
-    document.querySelectorAll('.grid-item').forEach((item, index) => {
-      const projectLabel = item.querySelector('.project-label').textContent;
-      const imagePath = getImagePath(projectLabel);
-      
-      console.log(`\n--- Project ${index + 1}: ${projectLabel} ---`);
-      console.log('Mapped image path:', imagePath);
-      
-      if (imagePath) {
-        // Test if image loads
-        const img = new Image();
-        img.onload = function() {
-          console.log(`✅ ${projectLabel} image loaded successfully`);
-          loadedImages.push(projectLabel);
-          updateDebugDisplay();
-        };
-        img.onerror = function() {
-          console.error(`❌ ${projectLabel} image failed to load:`, imagePath);
-          console.error('Full resolved URL:', new URL(imagePath, window.location.href).href);
-          failedImages.push({name: projectLabel, url: imagePath, resolvedUrl: new URL(imagePath, window.location.href).href});
-          updateDebugDisplay();
-        };
-        img.src = imagePath;
-      } else {
-        console.warn(`⚠️ No image mapping found for ${projectLabel}`);
-        failedImages.push({name: projectLabel, url: 'No mapping found', resolvedUrl: 'N/A'});
-        updateDebugDisplay();
-      }
-    });
-    
-    function updateDebugDisplay() {
-      const debugContent = document.getElementById('debug-content');
-      if (debugContent) {
-        let html = `<div>✅ Loaded: ${loadedImages.length}</div>`;
-        html += `<div>❌ Failed: ${failedImages.length}</div><br>`;
-        
-        if (failedImages.length > 0) {
-          html += '<div style="color: #ff6666;">Failed Images:</div>';
-          failedImages.forEach(img => {
-            html += `<div style="font-size: 10px; margin: 2px 0;">• ${img.name}</div>`;
-            html += `<div style="font-size: 9px; color: #ccc; margin-left: 10px;">${img.url}</div>`;
-          });
-        }
-        
-        if (loadedImages.length > 0) {
-          html += '<div style="color: #66ff66; margin-top: 10px;">Loaded Images:</div>';
-          loadedImages.forEach(img => {
-            html += `<div style="font-size: 10px; margin: 2px 0;">• ${img}</div>`;
-          });
-        }
-        
-        debugContent.innerHTML = html;
-        document.getElementById('debug-section').style.display = 'block';
-      }
-    }
-    
-    // Test direct image paths
-    console.log('\n=== DIRECT IMAGE PATH TEST ===');
-    const testPaths = [
-      'IMAGE/Amelie/AmelieCover.png',
-      'IMAGE/Flowerhead/FlowerheadCover.png',
-      'IMAGE/MyCollection/MyCollectionCover.jpg',
-      'IMAGE/ZhonghuaMasterChef/ZHMFCover.jpg',
-      'IMAGE/Apocile/ApocileCover.png',
-      'IMAGE/Bruise/BruiseCover.png',
-      'IMAGE/NoMoreBets/NoMoreBetsCover.png',
-      'IMAGE/TheOrb/TheOrbCover.png'
-    ];
-    
-    testPaths.forEach((path, index) => {
-      const img = new Image();
-      img.onload = function() {
-        console.log(`✅ Direct test ${index + 1}: ${path} loaded successfully`);
-      };
-      img.onerror = function() {
-        console.error(`❌ Direct test ${index + 1}: ${path} failed to load`);
-        console.error('Full URL:', new URL(path, window.location.href).href);
-      };
-      img.src = path;
-    });
 
     // Fix background images by setting them directly via JavaScript
     document.querySelectorAll('.grid-item').forEach((item, index) => {
@@ -337,14 +217,8 @@
       if (imagePath) {
         // Set the background image directly via JavaScript
         item.style.backgroundImage = `url('${imagePath}')`;
-        console.log(`Fixed background image for ${projectLabel}: ${imagePath}`);
       }
     });
-
-    // Show debug panel after a short delay
-    setTimeout(() => {
-      updateDebugDisplay();
-    }, 1000);
 
     // Add some interactive functionality
     document.querySelectorAll('.grid-item').forEach(item => {
