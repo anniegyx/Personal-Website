@@ -34,9 +34,9 @@
       </a>
 
       <a href="flower-head.html" class="grid-item flowerhead text-link" 
-        style="background-image: url('/IMAGE/Flowerhead/FlowerheadCover.png');">
+        style="background-image: url('IMAGE/Flowerhead/FlowerheadCover.png');">
         <div class="project-info">
-          <div class="project-label">2222Flowerhead Gallery</div>
+          <div class="project-label">3333Flowerhead Gallery</div>
           <div class="project-type">Brand Identity</div>
         </div>
       </a>
@@ -83,6 +83,18 @@
           <div class="project-type">Brand Identity + Exhibition Design</div>
         </div>
       </a>
+<!-- 
+      <a href="the-dust-remember.html" class="grid-item dust-remember text-link"
+        style="position: relative; background: none;">
+        <video autoplay muted loop playsinline
+          style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+          <source src="IMAGE/TheDustRemembers/TheDustRemembersCover.mp4" type="video/mp4" />
+        </video>
+        <div class="project-info" style="position: relative; z-index: 3;">
+          <div class="project-label">The Dust Remembers</div>
+          <div class="project-type">Print + Graphic Design</div>
+        </div>
+      </a> -->
 
       <a href="the-orb.html" class="grid-item orb text-link" style="
       background-image: url('IMAGE/TheOrb/TheOrbCover.png');">
@@ -103,6 +115,33 @@
       <a href="work-aigc.html" class="filter-vertical-item text-link">AIGC</a>
     </div>
   </div>
+
+  <!-- DEBUG SECTION - Remove this after fixing -->
+  <div id="debug-section" style="
+    position: fixed; 
+    top: 10px; 
+    right: 10px; 
+    background: rgba(0,0,0,0.8); 
+    color: white; 
+    padding: 10px; 
+    font-family: monospace; 
+    font-size: 12px; 
+    max-width: 300px; 
+    z-index: 9999;
+    border-radius: 5px;
+    display: none;
+  ">
+    <div style="font-weight: bold; margin-bottom: 5px;">🐛 DEBUG INFO</div>
+    <div id="debug-content"></div>
+    <button onclick="document.getElementById('debug-section').style.display='none'" style="
+      background: #ff4444; 
+      color: white; 
+      border: none; 
+      padding: 2px 5px; 
+      margin-top: 5px; 
+      cursor: pointer;
+    ">Close</button>
+  </div>
   </div>
 
 
@@ -115,6 +154,85 @@
   </footer>
 
   <script>
+    // DEBUG: Image loading diagnostics
+    console.log('=== IMAGE LOADING DEBUG ===');
+    console.log('Current URL:', window.location.href);
+    console.log('Base URL:', window.location.origin);
+    console.log('Current path:', window.location.pathname);
+    
+    let debugInfo = [];
+    let failedImages = [];
+    let loadedImages = [];
+    
+    // Check all background images
+    document.querySelectorAll('.grid-item').forEach((item, index) => {
+      const style = window.getComputedStyle(item);
+      const bgImage = style.backgroundImage;
+      const projectLabel = item.querySelector('.project-label').textContent;
+      
+      console.log(`\n--- Project ${index + 1}: ${projectLabel} ---`);
+      console.log('Background image URL:', bgImage);
+      
+      if (bgImage && bgImage !== 'none') {
+        // Extract URL from background-image CSS
+        const urlMatch = bgImage.match(/url\(['"]?([^'"]+)['"]?\)/);
+        if (urlMatch) {
+          const imageUrl = urlMatch[1];
+          console.log('Extracted URL:', imageUrl);
+          
+          // Test if image loads
+          const img = new Image();
+          img.onload = function() {
+            console.log(`✅ ${projectLabel} image loaded successfully`);
+            loadedImages.push(projectLabel);
+            updateDebugDisplay();
+          };
+          img.onerror = function() {
+            console.error(`❌ ${projectLabel} image failed to load:`, imageUrl);
+            console.error('Full resolved URL:', new URL(imageUrl, window.location.href).href);
+            failedImages.push({name: projectLabel, url: imageUrl, resolvedUrl: new URL(imageUrl, window.location.href).href});
+            updateDebugDisplay();
+          };
+          img.src = imageUrl;
+        }
+      } else {
+        console.warn(`⚠️ No background image found for ${projectLabel}`);
+        failedImages.push({name: projectLabel, url: 'No background image', resolvedUrl: 'N/A'});
+        updateDebugDisplay();
+      }
+    });
+    
+    function updateDebugDisplay() {
+      const debugContent = document.getElementById('debug-content');
+      if (debugContent) {
+        let html = `<div>✅ Loaded: ${loadedImages.length}</div>`;
+        html += `<div>❌ Failed: ${failedImages.length}</div><br>`;
+        
+        if (failedImages.length > 0) {
+          html += '<div style="color: #ff6666;">Failed Images:</div>';
+          failedImages.forEach(img => {
+            html += `<div style="font-size: 10px; margin: 2px 0;">• ${img.name}</div>`;
+            html += `<div style="font-size: 9px; color: #ccc; margin-left: 10px;">${img.url}</div>`;
+          });
+        }
+        
+        if (loadedImages.length > 0) {
+          html += '<div style="color: #66ff66; margin-top: 10px;">Loaded Images:</div>';
+          loadedImages.forEach(img => {
+            html += `<div style="font-size: 10px; margin: 2px 0;">• ${img}</div>`;
+          });
+        }
+        
+        debugContent.innerHTML = html;
+        document.getElementById('debug-section').style.display = 'block';
+      }
+    }
+    
+    // Show debug panel after a short delay
+    setTimeout(() => {
+      updateDebugDisplay();
+    }, 1000);
+
     // Add some interactive functionality
     document.querySelectorAll('.grid-item').forEach(item => {
       item.addEventListener('click', function () {
