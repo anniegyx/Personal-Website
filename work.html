@@ -36,14 +36,14 @@
       <a href="flower-head.html" class="grid-item flowerhead text-link" 
         style="background-image: url('IMAGE/Flowerhead/FlowerheadCover.png');">
         <div class="project-info">
-          <div class="project-label">7777Flowerhead Gallery</div>
+          <div class="project-label">8888Flowerhead Gallery</div>
           <div class="project-type">Brand Identity</div>
         </div>
       </a>
 
 
       <a href="my-collection.html" class="grid-item my-collection text-link" style="
-      background-image: url('/IMAGE/MyCollection/MyCollectionCover.jpg');">
+      background-image: url('IMAGE/MyCollection/MyCollectionCover.jpg');">
         <div class="project-info">
           <div class="project-label">My Collection</div>
           <div class="project-type">3D Modelling + Animation </div>
@@ -262,6 +262,18 @@
         console.error('Full URL:', new URL(path, window.location.href).href);
       };
       img.src = path;
+    });
+
+    // Fix background images by setting them directly via JavaScript
+    document.querySelectorAll('.grid-item').forEach((item, index) => {
+      const projectLabel = item.querySelector('.project-label').textContent;
+      const imagePath = getImagePath(projectLabel);
+      
+      if (imagePath) {
+        // Set the background image directly via JavaScript
+        item.style.backgroundImage = `url('${imagePath}')`;
+        console.log(`Fixed background image for ${projectLabel}: ${imagePath}`);
+      }
     });
 
     // Show debug panel after a short delay
