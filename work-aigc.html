@@ -352,6 +352,27 @@
 
 
     <script>
+        // Direct mapping of project labels to image paths
+        const projectImageMap = {
+            'Apocile': 'IMAGE/Apocile/ApocileCover.png',
+            'Vitally AI Intern': 'IMAGE/MissionIceLoong/MissionIceLoongCover.jpeg'
+        };
+        
+        function getImagePath(projectLabel) {
+            return projectImageMap[projectLabel];
+        }
+
+        // Fix background images by setting them directly via JavaScript
+        document.querySelectorAll('.grid-item').forEach((item, index) => {
+            const projectLabel = item.querySelector('.project-label').textContent;
+            const imagePath = getImagePath(projectLabel);
+            
+            if (imagePath) {
+                // Set the background image directly via JavaScript
+                item.style.backgroundImage = `url('${imagePath}')`;
+            }
+        });
+
         // Add some interactive functionality
         document.querySelectorAll('.grid-item').forEach(item => {
             item.addEventListener('click', function () {
