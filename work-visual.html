@@ -485,6 +485,30 @@
 
 
     <script>
+        // Direct mapping of project labels to image paths
+        const projectImageMap = {
+            'Amelie': 'IMAGE/Amelie/AmelieCover.png',
+            'Flowerhead Gallery': 'IMAGE/Flowerhead/FlowerheadCover.png',
+            'My Collection': 'IMAGE/MyCollection/MyCollectionCover.jpg',
+            'Bruise': 'IMAGE/Bruise/BruiseCover.png',
+            'The Orb': 'IMAGE/TheOrb/TheOrbCover.jpg'
+        };
+        
+        function getImagePath(projectLabel) {
+            return projectImageMap[projectLabel];
+        }
+
+        // Fix background images by setting them directly via JavaScript
+        document.querySelectorAll('.grid-item').forEach((item, index) => {
+            const projectLabel = item.querySelector('.project-label').textContent;
+            const imagePath = getImagePath(projectLabel);
+            
+            if (imagePath) {
+                // Set the background image directly via JavaScript
+                item.style.backgroundImage = `url('${imagePath}')`;
+            }
+        });
+
         // Add some interactive functionality
         document.querySelectorAll('.grid-item').forEach(item => {
             item.addEventListener('click', function () {
