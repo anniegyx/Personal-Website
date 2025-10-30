@@ -14,6 +14,18 @@
         }
 
         /* Project Gallery */
+        .project-video {
+          display: flex;
+          justify-content: center;
+          margin-top: 100px;
+          margin-bottom: 40px;
+        }
+
+        .gallery-video {
+          width: 45%;
+          max-width: 550px;
+          border-radius: 8px;
+        }
         .project-gallery {
             display: flex;
             flex-direction: column;
@@ -126,6 +138,13 @@
             <a href="about.html" class="nav-item text-link" onclick="handleNavClick(event, 'about')">A'BOUT</a>
         </div>
     </nav>
+
+    <div class="project-video">
+      <video controls autoplay muted loop playsinline class="gallery-video">
+        <source src="IMAGE/MyCollection/canvas-video.webm" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+    </div>
 
     <main class="project-description">
         <div class="project-inner">
