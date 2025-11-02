@@ -458,19 +458,39 @@
     };
     
     function getImagePath(projectLabel) {
-      return projectImageMap[projectLabel];
+      // Trim whitespace and normalize the label
+      const normalizedLabel = projectLabel?.trim();
+      return projectImageMap[normalizedLabel];
     }
 
     // Fix background images by setting them directly via JavaScript
-    document.querySelectorAll('.grid-item').forEach((item, index) => {
-      const projectLabel = item.querySelector('.project-label')?.textContent;
-      const imagePath = getImagePath(projectLabel);
+    function fixBackgroundImages() {
+      // Target the specific "20" project by multiple selectors for reliability
+      const twentyProject = document.querySelector('.grid-item.twenty') || 
+                           document.querySelector('a[href="20.html"]');
       
-      if (imagePath) {
-        // Set the background image directly via JavaScript
-        item.style.backgroundImage = `url('${imagePath}')`;
+      if (twentyProject) {
+        const projectLabel = twentyProject.querySelector('.project-label')?.textContent?.trim();
+        const imagePath = projectImageMap['20']; // Direct access to ensure it works
+        
+        if (imagePath) {
+          // Set the background image directly via JavaScript with all necessary properties
+          // Using setProperty for more reliable CSS setting
+          twentyProject.style.setProperty('background-image', `url('${imagePath}')`, 'important');
+          twentyProject.style.setProperty('background-size', 'cover', 'important');
+          twentyProject.style.setProperty('background-position', 'center', 'important');
+          twentyProject.style.setProperty('background-repeat', 'no-repeat', 'important');
+          
+          // Ensure position is relative (from original style)
+          twentyProject.style.position = 'relative';
+        }
       }
-    });
+    }
+
+    // Run after a small delay to ensure DOM is fully ready
+    setTimeout(fixBackgroundImages, 100);
+    // Also run on DOMContentLoaded as backup
+    document.addEventListener('DOMContentLoaded', fixBackgroundImages);
 
     document.querySelectorAll('.grid-item').forEach(item => {
       item.addEventListener('click', function () {
