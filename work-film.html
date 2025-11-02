@@ -452,6 +452,26 @@
 
   <!-- === Interactions copied from work-aigc.html (unchanged) === -->
   <script>
+    // Direct mapping of project labels to image paths
+    const projectImageMap = {
+      '20': 'IMAGE/20/20Cover.png'
+    };
+    
+    function getImagePath(projectLabel) {
+      return projectImageMap[projectLabel];
+    }
+
+    // Fix background images by setting them directly via JavaScript
+    document.querySelectorAll('.grid-item').forEach((item, index) => {
+      const projectLabel = item.querySelector('.project-label')?.textContent;
+      const imagePath = getImagePath(projectLabel);
+      
+      if (imagePath) {
+        // Set the background image directly via JavaScript
+        item.style.backgroundImage = `url('${imagePath}')`;
+      }
+    });
+
     document.querySelectorAll('.grid-item').forEach(item => {
       item.addEventListener('click', function () {
         const label = this.querySelector('.project-label')?.textContent;
